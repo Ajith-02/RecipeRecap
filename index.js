@@ -2,6 +2,11 @@
 
 import express from "express";
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv"
+
+dotenv.config();
+
+console.log(process.env);
 
 const app = express();
 
@@ -29,9 +34,10 @@ const recipes = [
         name: "Chicken tandoori"
     }
 ];
-//const MONGO_URL = process.env.MONGO_URL;
 
-const RECIPE_URL = "mongodb://localhost";
+//const RECIPE_URL = "mongodb://localhost";
+
+const RECIPE_URL = process.env.RECIPE_URL;
 
 async function createConnection(){
     const client = new MongoClient(RECIPE_URL);
