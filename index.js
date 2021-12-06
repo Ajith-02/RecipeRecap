@@ -1,8 +1,9 @@
 //const express = require("express"); this is for "type": "common" 
 
-import express from "express";
+import express, { response } from "express";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv"
+import { request } from "http";
 
 dotenv.config();
 
@@ -47,6 +48,15 @@ async function createConnection(){
   }
   export const client = await createConnection()
 
+
+  app.post("/recipes", async (request, response) => {
+      const data = request.body;
+      const result = await client
+      .db("recipe")
+      .collection("recipes")
+      .insertMany(data);
+      response.send(data);
+  });
 
 app.get("/", (request, response) => {
     response.send("Hello world 🦁");
